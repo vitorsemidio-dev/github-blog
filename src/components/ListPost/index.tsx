@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react'
+import { api } from '../../services/api'
+import { formatterTimeAgo } from '../../utils/timeago'
+
 import { Text, Title } from '../Typography'
 import {
   ListItem,
@@ -7,58 +11,54 @@ import {
   ListPostContainer,
 } from './styles'
 
+interface IPost {
+  id: number
+  body: string
+  html_url: string
+  title: string
+  created_at: string
+  number: number
+}
+
+interface ISearchIssueResponse {
+  items: IPost[]
+}
+
 export function ListPost() {
-  const posts = [
-    {
-      id: '1',
-      title: 'JavaScript data types and data structures',
-      text: 'Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in',
-      createdAt: 'Há 1 dia',
-    },
-    {
-      id: '2',
-      title: 'JavaScript data types and data structures',
-      text: 'Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in',
-      createdAt: 'Há 1 dia',
-    },
-    {
-      id: '3',
-      title: 'JavaScript data types and data structures',
-      text: 'Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in',
-      createdAt: 'Há 1 dia',
-    },
-    {
-      id: '4',
-      title: 'JavaScript data types and data structures',
-      text: 'Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in. Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in',
-      createdAt: 'Há 1 dia',
-    },
-    {
-      id: '5',
-      title: 'JavaScript data types and data structures',
-      text: 'Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in',
-      createdAt: 'Há 1 dia',
-    },
-    {
-      id: '6',
-      title: 'JavaScript data types and data structures',
-      text: 'Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in',
-      createdAt: 'Há 1 dia',
-    },
-  ]
+  const q = 'Boas'
+  const username = 'rocketseat-education'
+  const repo = 'reactjs-github-blog-challenge'
+  const [posts, setPosts] = useState<IPost[]>([])
+
+  useEffect(() => {
+    const loadPost = async () => {
+      const response = await api.get<ISearchIssueResponse>('/search/issues', {
+        params: { q: `${q} repo:${username}/${repo}` },
+      })
+      setPosts(
+        response.data.items.map((item) => ({
+          ...item,
+          created_at: formatterTimeAgo(item.created_at),
+        })),
+      )
+    }
+
+    loadPost()
+  }, [])
+
   return (
     <ListPostContainer>
       {posts.map((postItem) => (
         <ListItem key={postItem.id}>
-          <ListItemLink to={`posts/${postItem.id}`}>
+          <ListItemLink to={`posts/${postItem.number}`}>
             <ListItemHeader>
               <Title size={'m'}>{postItem.title}</Title>
               <Text size={'s'} color={'span'}>
-                {postItem.createdAt}
+                {postItem.created_at}
               </Text>
             </ListItemHeader>
 
-            <ListItemContent>{postItem.text}</ListItemContent>
+            <ListItemContent>{postItem.body}</ListItemContent>
           </ListItemLink>
         </ListItem>
       ))}
