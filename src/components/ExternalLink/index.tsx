@@ -1,15 +1,25 @@
-import { ReactNode } from 'react'
+import { AnchorHTMLAttributes, ReactNode } from 'react'
 import { ExternalLinkContainer } from './styles'
 
-interface ExternalLinkProps {
+interface ExternalLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string
   children: ReactNode
 }
 
-export function ExternalLink({ href, children, ...rest }: ExternalLinkProps) {
+export function ExternalLink({
+  href,
+  children,
+  target = '_blank',
+  ...rest
+}: ExternalLinkProps) {
   return (
     <>
-      <ExternalLinkContainer href={href} {...rest}>
+      <ExternalLinkContainer
+        href={href}
+        target={target}
+        rel="noopener noreferrer"
+        {...rest}
+      >
         {children}
       </ExternalLinkContainer>
     </>
