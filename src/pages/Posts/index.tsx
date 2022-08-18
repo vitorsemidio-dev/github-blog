@@ -1,29 +1,23 @@
-import { PostInfo } from '../../components/PostInfo'
+import { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { PostInfo } from '../../components/PostInfo'
 import { PostMarkdownContent } from '../../components/PostMarkdownContent'
-import { useEffect, useState } from 'react'
-import { api } from '../../services/api'
+import { PostsContext } from '../../context/PostsContext'
 
 export function Posts() {
-  const [content, setContent] = useState('')
+  const { post, searchPostByNumber } = useContext(PostsContext)
   const { number } = useParams()
 
   useEffect(() => {
-    const loadPost = async () => {
-      const owner = 'rocketseat-education'
-      const repo = 'reactjs-github-blog-challenge'
-      const url = `/repos/${owner}/${repo}/issues/${number}`
-      const response = await api.get(url)
-
-      setContent(response.data.body as string)
+    if (number) {
+      searchPostByNumber(number)
     }
+  }, [number, searchPostByNumber])
 
-    loadPost()
-  }, [number])
   return (
     <>
       <PostInfo />
-      {content && <PostMarkdownContent content={content} />}
+      {!!post && <PostMarkdownContent content={post.body} />}
     </>
   )
 }
