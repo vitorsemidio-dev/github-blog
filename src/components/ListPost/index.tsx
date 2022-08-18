@@ -1,4 +1,5 @@
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
+import { useContextSelector } from 'use-context-selector'
 import { PostsContext } from '../../context/PostsContext'
 import { formatterTimeAgo } from '../../utils/timeago'
 
@@ -12,7 +13,9 @@ import {
 } from './styles'
 
 export function ListPost() {
-  const { posts: postsSource } = useContext(PostsContext)
+  const postsSource = useContextSelector(PostsContext, (context) => {
+    return context.posts
+  })
   const posts = useMemo(() => {
     return postsSource.map((postSourceItem) => ({
       ...postSourceItem,

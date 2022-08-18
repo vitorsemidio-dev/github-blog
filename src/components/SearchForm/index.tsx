@@ -1,4 +1,5 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useMemo, useState } from 'react'
+import { useContextSelector } from 'use-context-selector'
 import { PostsContext } from '../../context/PostsContext'
 import { useDebounce } from '../../hooks/useDebounce'
 import { Text, Title } from '../Typography'
@@ -9,7 +10,18 @@ import {
 } from './styles'
 
 export function SearchForm() {
-  const { searchPosts } = useContext(PostsContext)
+  const { posts, searchPosts } = useContextSelector(PostsContext, (context) => {
+    return {
+      posts: context.posts,
+      searchPosts: context.searchPosts,
+    }
+  })
+
+  const quantityPostText = useMemo(() => {
+    const quantity = posts.length
+    const text = quantity > 1 ? 'publicações' : 'publicação'
+    return `${quantity} ${text}`
+  }, [posts])
 
   const [searchText, setSearchText] = useState<string>('')
   const debouncedValue = useDebounce<string>(searchText, 5000)
@@ -28,7 +40,7 @@ export function SearchForm() {
       <SearchFormHeader>
         <Title size={'s'}>Publicações</Title>
         <Text size={'s'} color={'span'}>
-          6 publicações
+          {quantityPostText}
         </Text>
       </SearchFormHeader>
       <SearchFormWrapper>

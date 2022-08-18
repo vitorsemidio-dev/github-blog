@@ -1,20 +1,18 @@
-import {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-  createContext,
-} from 'react'
-// import { createContext } from 'use-context-selector'
+import { ReactNode, useCallback, useState } from 'react'
+import { createContext } from 'use-context-selector'
 import { api } from '../services/api'
 
-interface IPost {
+export interface IPost {
   id: number
   body: string
   html_url: string
   title: string
   created_at: string
   number: number
+  comments: number
+  user: {
+    company: string
+  }
 }
 
 interface ISearchIssueResponse {
@@ -56,10 +54,6 @@ export function PostsProvider({ children }: PostsProviderProps) {
     )
     setPost(response.data)
   }, [])
-
-  useEffect(() => {
-    searchPosts()
-  }, [searchPosts])
 
   return (
     <PostsContext.Provider

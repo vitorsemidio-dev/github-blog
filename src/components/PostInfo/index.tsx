@@ -15,10 +15,17 @@ import {
   PostInfoContainer,
   PostBackLink,
 } from './styles'
+import { IPost } from '../../context/PostsContext'
+import { formatterTimeAgo } from '../../utils/timeago'
 
-export function PostInfo() {
-  const urlGithub =
-    'https://github.com/rocketseat-education/reactjs-github-blog-challenge/issues'
+interface PostInfoProps {
+  post: IPost
+}
+
+export function PostInfo({ post }: PostInfoProps) {
+  if (!post) return <></>
+  const timeAgo = formatterTimeAgo(post?.created_at)
+  const quantityComments = post?.comments
   return (
     <PostInfoContainer>
       <PostContentHeader>
@@ -26,26 +33,26 @@ export function PostInfo() {
           <ArrowLeft size={18} />
           Voltar
         </PostBackLink>
-        <ExternalLink href={urlGithub}>
+        <ExternalLink href={post.html_url}>
           <span>Ver no Github</span>
           <ArrowSquareUpRight size={18} />
         </ExternalLink>
       </PostContentHeader>
 
-      <Title>JavaScript data types and data structures</Title>
+      <Title>{post?.title}</Title>
 
       <PostInfoList>
         <PostInfoListItem>
           <GithubLogo size={18} />
-          <Text color={'span'}>cameronwll</Text>
+          <Text color={'span'}>{post?.user?.company || '-'}</Text>
         </PostInfoListItem>
         <PostInfoListItem>
           <Calendar size={18} />
-          <Text color={'span'}>Há 1 dia</Text>
+          <Text color={'span'}>{timeAgo}</Text>
         </PostInfoListItem>
         <PostInfoListItem>
           <ChatText size={18} />
-          <Text color={'span'}>5 comentários</Text>
+          <Text color={'span'}>{quantityComments} comentário(s)</Text>
         </PostInfoListItem>
       </PostInfoList>
     </PostInfoContainer>
