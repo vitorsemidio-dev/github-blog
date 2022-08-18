@@ -3,6 +3,7 @@ import {
   ListItem,
   ListItemContent,
   ListItemHeader,
+  ListItemLink,
   ListPostContainer,
 } from './styles'
 
@@ -49,14 +50,16 @@ export function ListPost() {
     <ListPostContainer>
       {posts.map((postItem) => (
         <ListItem key={postItem.id}>
-          <ListItemHeader>
-            <Title size={'m'}>{postItem.title}</Title>
-            <Text size={'s'} color={'span'}>
-              {postItem.createdAt}
-            </Text>
-          </ListItemHeader>
+          <ListItemLink to={`posts/${postItem.id}`}>
+            <ListItemHeader>
+              <Title size={'m'}>{postItem.title}</Title>
+              <Text size={'s'} color={'span'}>
+                {postItem.createdAt}
+              </Text>
+            </ListItemHeader>
 
-          <ListItemContent>{postItem.text}</ListItemContent>
+            <ListItemContent>{postItem.text}</ListItemContent>
+          </ListItemLink>
         </ListItem>
       ))}
     </ListPostContainer>
