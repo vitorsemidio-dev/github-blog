@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const ListPostContainer = styled.ul`
@@ -10,6 +11,11 @@ export const ListPostContainer = styled.ul`
 `
 
 export const ListItem = styled.li`
+  list-style: none;
+`
+export const ListItemLink = styled(Link)`
+  text-decoration: none;
+
   padding: 2rem;
   background: ${(props) => props.theme.colors['base-post']};
   border-radius: 10px;
