@@ -18,4 +18,9 @@ export const GlobalStyle = createGlobalStyle`
   body, input, textarea, button {
     font: 400 1rem ${(props) => props.theme.fonts.regular}, sans-serif;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `
