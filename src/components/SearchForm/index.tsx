@@ -24,7 +24,7 @@ export function SearchForm() {
   }, [posts])
 
   const [searchText, setSearchText] = useState<string>('')
-  const debouncedValue = useDebounce<string>(searchText, 5000)
+  const debouncedValue = useDebounce<string>(searchText, 500)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value)
