@@ -20,7 +20,7 @@ interface ISearchIssueResponse {
 }
 
 type PostsContextType = {
-  post: IPost
+  post?: IPost
   posts: IPost[]
   searchPosts: (query?: string) => Promise<void>
   searchPostByNumber: (number: number | string) => Promise<void>
@@ -34,13 +34,13 @@ interface PostsProviderProps {
 
 export function PostsProvider({ children }: PostsProviderProps) {
   const [posts, setPosts] = useState<IPost[]>([])
-  const [post, setPost] = useState<IPost>({} as IPost)
+  const [post, setPost] = useState<IPost | undefined>(undefined)
 
   const searchPosts = useCallback(async (query: string = '') => {
-    const username = 'rocketseat-education'
+    const owner = 'rocketseat-education'
     const repo = 'reactjs-github-blog-challenge'
     const response = await api.get<ISearchIssueResponse>(`/search/issues`, {
-      params: { q: `${query} repo:${username}/${repo}` },
+      params: { q: `${query} repo:${owner}/${repo}` },
     })
 
     setPosts(response.data.items)

@@ -19,7 +19,7 @@ import {
 } from './styles'
 
 interface PostInfoProps {
-  post: IPost
+  post?: IPost
 }
 
 export function PostInfo({ post }: PostInfoProps) {
