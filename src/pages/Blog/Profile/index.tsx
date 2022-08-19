@@ -4,8 +4,10 @@ import {
   GithubLogo,
   Users,
 } from 'phosphor-react'
+import { useEffect, useState } from 'react'
 import { ExternalLink } from '../../../components/ExternalLink'
 import { Text, Title } from '../../../components/Typography'
+import { api } from '../../../services/api'
 import {
   InfoItemContainer,
   InfoProfileContainer,
@@ -16,48 +18,78 @@ import {
   ProfileImageContainer,
 } from './styles'
 
+const environment = {
+  VITE_GITHUB_OWNER: import.meta.env.VITE_GITHUB_OWNER,
+}
+
+type ProfileType = {
+  login: string
+  id: number
+  avatar_url: string
+  url: string
+  html_url: string
+  type: string
+  name: string
+  company: string
+  location: string
+  email: string
+  bio: string
+  public_repos: number
+  public_gists: number
+  followers: number
+  following: number
+}
+
 export function Profile() {
-  const urlAvatar = 'https://github.com/vitorsemidio-dev.png'
-  const githubUrl = 'https://github.com/vitorsemidio-dev'
+  const [profile, setProfile] = useState<ProfileType | null>(null)
+  useEffect(() => {
+    const loadProfile = async () => {
+      const owner = environment.VITE_GITHUB_OWNER
+      const response = await api.get<ProfileType>(`/users/${owner}`)
+      setProfile(response.data)
+    }
+
+    loadProfile()
+  }, [])
+
+  if (!profile) return <></>
   return (
     <ProfileContainer>
       <ProfileImageContainer>
-        <img src={urlAvatar} alt="" />
+        <img src={profile.avatar_url} alt="" />
       </ProfileImageContainer>
 
       <InfoProfileContainer>
         <InfoProfileContainerHeader>
           <Title lineHeight={130} size={'l'}>
-            Vitor Emídio
+            {profile.name}
           </Title>
 
-          <ExternalLink href={githubUrl}>
+          <ExternalLink href={profile.html_url}>
             <span>Github</span>
-
             <ArrowSquareUpRight size={18} />
           </ExternalLink>
         </InfoProfileContainerHeader>
 
         <InfoProfileContainerBody>
-          <Text>
-            Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-            viverra massa quam dignissim aenean malesuada suscipit. Nunc,
-            volutpat pulvinar vel mass.
-          </Text>
+          <Text>{profile.bio}</Text>
         </InfoProfileContainerBody>
 
         <InfoProfileContainerFooter>
           <InfoItemContainer>
             <GithubLogo size={18} />
-            <Text color={'subtitle'}>cameronwll</Text>
+            <Text color={'subtitle'}>{profile.login}</Text>
           </InfoItemContainer>
-          <InfoItemContainer>
-            <Buildings size={18} />
-            <Text color={'subtitle'}>Rocketseat</Text>
-          </InfoItemContainer>
+
+          {profile.company && (
+            <InfoItemContainer>
+              <Buildings size={18} />
+              <Text color={'subtitle'}>{profile.company}</Text>
+            </InfoItemContainer>
+          )}
           <InfoItemContainer>
             <Users size={18} />
-            <Text color={'subtitle'}>32 seguidores</Text>
+            <Text color={'subtitle'}>{profile.followers} seguidor(es)</Text>
           </InfoItemContainer>
         </InfoProfileContainerFooter>
       </InfoProfileContainer>

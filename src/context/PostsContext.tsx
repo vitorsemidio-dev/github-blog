@@ -2,6 +2,11 @@ import { ReactNode, useCallback, useState } from 'react'
 import { createContext } from 'use-context-selector'
 import { api } from '../services/api'
 
+const environment = {
+  VITE_GITHUB_OWNER: import.meta.env.VITE_GITHUB_OWNER,
+  VITE_GITHUB_REPO: import.meta.env.VITE_GITHUB_REPO,
+}
+
 export interface IPost {
   id: number
   body: string
@@ -37,8 +42,8 @@ export function PostsProvider({ children }: PostsProviderProps) {
   const [post, setPost] = useState<IPost | undefined>(undefined)
 
   const searchPosts = useCallback(async (query: string = '') => {
-    const owner = 'rocketseat-education'
-    const repo = 'reactjs-github-blog-challenge'
+    const owner = environment.VITE_GITHUB_OWNER
+    const repo = environment.VITE_GITHUB_REPO
     const response = await api.get<ISearchIssueResponse>(`/search/issues`, {
       params: { q: `${query} repo:${owner}/${repo}` },
     })
@@ -47,8 +52,8 @@ export function PostsProvider({ children }: PostsProviderProps) {
   }, [])
 
   const searchPostByNumber = useCallback(async (number: number | string) => {
-    const owner = 'rocketseat-education'
-    const repo = 'reactjs-github-blog-challenge'
+    const owner = environment.VITE_GITHUB_OWNER
+    const repo = environment.VITE_GITHUB_REPO
     const response = await api.get<IPost>(
       `repos/${owner}/${repo}/issues/${number}`,
     )
