@@ -44,7 +44,7 @@ export function PostInfo({ post }: PostInfoProps) {
       <PostInfoList>
         <PostInfoListItem>
           <GithubLogo size={18} />
-          <Text color={'span'}>{post?.user?.company || '-'}</Text>
+          <Text color={'span'}>{post?.user?.login || '-'}</Text>
         </PostInfoListItem>
         <PostInfoListItem>
           <Calendar size={18} />

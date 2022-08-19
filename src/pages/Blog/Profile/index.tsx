@@ -4,10 +4,9 @@ import {
   GithubLogo,
   Users,
 } from 'phosphor-react'
-import { useEffect, useState } from 'react'
 import { ExternalLink } from '../../../components/ExternalLink'
 import { Text, Title } from '../../../components/Typography'
-import { api } from '../../../services/api'
+import { useProfile } from '../../../hooks/useProfile'
 import {
   InfoItemContainer,
   InfoProfileContainer,
@@ -18,39 +17,8 @@ import {
   ProfileImageContainer,
 } from './styles'
 
-const environment = {
-  VITE_GITHUB_OWNER: import.meta.env.VITE_GITHUB_OWNER,
-}
-
-type ProfileType = {
-  login: string
-  id: number
-  avatar_url: string
-  url: string
-  html_url: string
-  type: string
-  name: string
-  company: string
-  location: string
-  email: string
-  bio: string
-  public_repos: number
-  public_gists: number
-  followers: number
-  following: number
-}
-
 export function Profile() {
-  const [profile, setProfile] = useState<ProfileType | null>(null)
-  useEffect(() => {
-    const loadProfile = async () => {
-      const owner = environment.VITE_GITHUB_OWNER
-      const response = await api.get<ProfileType>(`/users/${owner}`)
-      setProfile(response.data)
-    }
-
-    loadProfile()
-  }, [])
+  const { profile } = useProfile()
 
   if (!profile) return <></>
   return (

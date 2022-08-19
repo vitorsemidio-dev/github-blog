@@ -7,6 +7,24 @@ const environment = {
   VITE_GITHUB_REPO: import.meta.env.VITE_GITHUB_REPO,
 }
 
+export interface User {
+  login: string
+  id: number
+  avatar_url: string
+  url: string
+  html_url: string
+  type: string
+  name: string
+  company: string
+  location: string
+  email: string
+  bio: string
+  public_repos: number
+  public_gists: number
+  followers: number
+  following: number
+}
+
 export interface IPost {
   id: number
   body: string
@@ -15,9 +33,7 @@ export interface IPost {
   created_at: string
   number: number
   comments: number
-  user: {
-    company: string
-  }
+  user: User
 }
 
 interface ISearchIssueResponse {
@@ -45,7 +61,7 @@ export function PostsProvider({ children }: PostsProviderProps) {
     const owner = environment.VITE_GITHUB_OWNER
     const repo = environment.VITE_GITHUB_REPO
     const response = await api.get<ISearchIssueResponse>(`/search/issues`, {
-      params: { q: `${query} repo:${owner}/${repo}` },
+      params: { q: `${query} repo:${owner}/${repo} is:open` },
     })
 
     setPosts(response.data.items)
