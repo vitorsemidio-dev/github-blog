@@ -1,8 +1,8 @@
-import { ListPost } from '../../components/ListPost'
-import { Profile } from '../../components/Profile'
-import { SearchForm } from '../../components/SearchForm'
+import { ListPost } from './ListPost'
+import { Profile } from './Profile'
+import { SearchForm } from './SearchForm'
 
-export function Blog() {
+export function BlogPage() {
   return (
     <>
       <Profile />

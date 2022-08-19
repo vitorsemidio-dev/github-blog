@@ -6,20 +6,20 @@ import {
   GithubLogo,
 } from 'phosphor-react'
 
-import { Text, Title } from '../../components/Typography'
-import { ExternalLink } from '../../components/ExternalLink'
+import { ExternalLink } from '../../../components/ExternalLink'
+import { Text, Title } from '../../../components/Typography'
+import { IPost } from '../../../context/PostsContext'
+import { formatterTimeAgo } from '../../../utils/timeago'
 import {
-  PostInfoList,
-  PostInfoListItem,
+  PostBackLink,
   PostContentHeader,
   PostInfoContainer,
-  PostBackLink,
+  PostInfoList,
+  PostInfoListItem,
 } from './styles'
-import { IPost } from '../../context/PostsContext'
-import { formatterTimeAgo } from '../../utils/timeago'
 
 interface PostInfoProps {
-  post: IPost
+  post?: IPost
 }
 
 export function PostInfo({ post }: PostInfoProps) {
@@ -44,7 +44,7 @@ export function PostInfo({ post }: PostInfoProps) {
       <PostInfoList>
         <PostInfoListItem>
           <GithubLogo size={18} />
-          <Text color={'span'}>{post?.user?.company || '-'}</Text>
+          <Text color={'span'}>{post?.user?.login || '-'}</Text>
         </PostInfoListItem>
         <PostInfoListItem>
           <Calendar size={18} />

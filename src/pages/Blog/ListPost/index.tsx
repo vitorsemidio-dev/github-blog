@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { useContextSelector } from 'use-context-selector'
-import { PostsContext } from '../../context/PostsContext'
-import { formatterTimeAgo } from '../../utils/timeago'
+import { PostsContext } from '../../../context/PostsContext'
+import { formatterTimeAgo } from '../../../utils/timeago'
 
-import { Text, Title } from '../Typography'
+import { Text, Title } from '../../../components/Typography'
 import {
   ListItem,
   ListItemContent,

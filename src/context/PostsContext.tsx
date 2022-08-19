@@ -2,6 +2,29 @@ import { ReactNode, useCallback, useState } from 'react'
 import { createContext } from 'use-context-selector'
 import { api } from '../services/api'
 
+const environment = {
+  VITE_GITHUB_OWNER: import.meta.env.VITE_GITHUB_OWNER,
+  VITE_GITHUB_REPO: import.meta.env.VITE_GITHUB_REPO,
+}
+
+export interface User {
+  login: string
+  id: number
+  avatar_url: string
+  url: string
+  html_url: string
+  type: string
+  name: string
+  company: string
+  location: string
+  email: string
+  bio: string
+  public_repos: number
+  public_gists: number
+  followers: number
+  following: number
+}
+
 export interface IPost {
   id: number
   body: string
@@ -10,9 +33,7 @@ export interface IPost {
   created_at: string
   number: number
   comments: number
-  user: {
-    company: string
-  }
+  user: User
 }
 
 interface ISearchIssueResponse {
@@ -20,7 +41,7 @@ interface ISearchIssueResponse {
 }
 
 type PostsContextType = {
-  post: IPost
+  post?: IPost
   posts: IPost[]
   searchPosts: (query?: string) => Promise<void>
   searchPostByNumber: (number: number | string) => Promise<void>
@@ -34,21 +55,21 @@ interface PostsProviderProps {
 
 export function PostsProvider({ children }: PostsProviderProps) {
   const [posts, setPosts] = useState<IPost[]>([])
-  const [post, setPost] = useState<IPost>({} as IPost)
+  const [post, setPost] = useState<IPost | undefined>(undefined)
 
   const searchPosts = useCallback(async (query: string = '') => {
-    const username = 'rocketseat-education'
-    const repo = 'reactjs-github-blog-challenge'
+    const owner = environment.VITE_GITHUB_OWNER
+    const repo = environment.VITE_GITHUB_REPO
     const response = await api.get<ISearchIssueResponse>(`/search/issues`, {
-      params: { q: `${query} repo:${username}/${repo}` },
+      params: { q: `${query} repo:${owner}/${repo} is:open` },
     })
 
     setPosts(response.data.items)
   }, [])
 
   const searchPostByNumber = useCallback(async (number: number | string) => {
-    const owner = 'rocketseat-education'
-    const repo = 'reactjs-github-blog-challenge'
+    const owner = environment.VITE_GITHUB_OWNER
+    const repo = environment.VITE_GITHUB_REPO
     const response = await api.get<IPost>(
       `repos/${owner}/${repo}/issues/${number}`,
     )

@@ -5,7 +5,7 @@ export const ListPostContainer = styled.ul`
   margin: 3rem auto 14.625rem;
   max-width: ${(props) => props.theme.screens.desktop};
   display: grid;
-  grid-template-columns: repeat(auto-fill, 26rem);
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
   gap: 2rem;
   width: 100%;
 `
@@ -33,9 +33,18 @@ export const ListItemHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  gap: 1rem;
 
-  h1 {
-    max-width: 17.5rem;
+  > h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  > p {
   }
 `
 

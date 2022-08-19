@@ -5,6 +5,16 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    ::-webkit-scrollbar {
+      width: 0.45rem;
+    }
+    ::-webkit-scrollbar-track {
+      background: ${({ theme }) => theme.colors['base-border']}
+    }
+    ::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.colors.blue};
+      border-radius: 999px;
+    }
   }
   :focus {
     outline: 0;
