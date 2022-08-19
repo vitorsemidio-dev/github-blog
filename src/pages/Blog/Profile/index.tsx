@@ -4,16 +4,16 @@ import {
   GithubLogo,
   Users,
 } from 'phosphor-react'
-import { ExternalLink } from '../ExternalLink'
-import { Text, Title } from '../Typography'
+import { ExternalLink } from '../../../components/ExternalLink'
+import { Text, Title } from '../../../components/Typography'
 import {
+  InfoItemContainer,
   InfoProfileContainer,
-  ProfileContainer,
-  ProfileImageContainer,
-  InfoProfileContainerHeader,
   InfoProfileContainerBody,
   InfoProfileContainerFooter,
-  InfoItemContainer,
+  InfoProfileContainerHeader,
+  ProfileContainer,
+  ProfileImageContainer,
 } from './styles'
 
 export function Profile() {

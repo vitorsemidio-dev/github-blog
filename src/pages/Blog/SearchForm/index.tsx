@@ -1,8 +1,8 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import { useContextSelector } from 'use-context-selector'
-import { PostsContext } from '../../context/PostsContext'
-import { useDebounce } from '../../hooks/useDebounce'
-import { Text, Title } from '../Typography'
+import { Text, Title } from '../../../components/Typography'
+import { PostsContext } from '../../../context/PostsContext'
+import { useDebounce } from '../../../hooks/useDebounce'
 import {
   SearchFormContainer,
   SearchFormHeader,

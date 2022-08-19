@@ -6,17 +6,17 @@ import {
   GithubLogo,
 } from 'phosphor-react'
 
-import { Text, Title } from '../../components/Typography'
-import { ExternalLink } from '../../components/ExternalLink'
+import { ExternalLink } from '../../../components/ExternalLink'
+import { Text, Title } from '../../../components/Typography'
+import { IPost } from '../../../context/PostsContext'
+import { formatterTimeAgo } from '../../../utils/timeago'
 import {
-  PostInfoList,
-  PostInfoListItem,
+  PostBackLink,
   PostContentHeader,
   PostInfoContainer,
-  PostBackLink,
+  PostInfoList,
+  PostInfoListItem,
 } from './styles'
-import { IPost } from '../../context/PostsContext'
-import { formatterTimeAgo } from '../../utils/timeago'
 
 interface PostInfoProps {
   post: IPost

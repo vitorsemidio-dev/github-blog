@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useContextSelector } from 'use-context-selector'
-import { PostInfo } from '../../components/PostInfo'
-import { PostMarkdownContent } from '../../components/PostMarkdownContent'
 import { PostsContext } from '../../context/PostsContext'
+import { PostInfo } from './PostInfo'
+import { PostMarkdownContent } from './PostMarkdownContent'
 
-export function Posts() {
+export function PostPage() {
   const { post, searchPostByNumber } = useContextSelector(
     PostsContext,
     (context) => {
