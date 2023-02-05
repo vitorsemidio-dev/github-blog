@@ -46,6 +46,15 @@ Github Blog é uma aplicação que busca as issues de um repositório e lista co
 git clone https://github.com/vitorsemidio-dev/github-blog
 ```
 
+**Configure as variáveis de ambiente**
+
+- Crie um arquivo `.env` e preencha os valores das variáveis com seu nome e repositório do github. Existe um exemplo em `.env.example`.
+
+```env
+VITE_GITHUB_OWNER=""
+VITE_GITHUB_REPO=""
+```
+
 **Instale as dependências**
 
 ```bash

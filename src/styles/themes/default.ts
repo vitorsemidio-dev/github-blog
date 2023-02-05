@@ -19,6 +19,8 @@ export const defaultTheme = {
 
   screens: {
     desktop: '54rem',
+    tablet: '40rem',
+    mobile: '30rem',
   },
 
   textSizes: {

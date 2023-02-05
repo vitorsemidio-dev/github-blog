@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 export const SearchFormContainer = styled.div`
+  padding: 0 1rem;
   margin: 0 auto;
   width: 100%;
   max-width: ${(props) => props.theme.screens.desktop};
@@ -7,6 +8,10 @@ export const SearchFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  @media (max-width: ${(props) => props.theme.screens.tablet}) {
+    margin-top: 2.5rem;
+  }
 `
 
 export const SearchFormHeader = styled.header`

@@ -2,12 +2,17 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const ListPostContainer = styled.ul`
+  padding: 0 1rem;
   margin: 3rem auto 14.625rem;
   max-width: ${(props) => props.theme.screens.desktop};
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
   gap: 2rem;
   width: 100%;
+
+  @media (max-width: ${(props) => props.theme.screens.tablet}) {
+    grid-template-columns: 1fr;
+  }
 `
 
 export const ListItem = styled.li`
@@ -58,4 +63,6 @@ export const ListItemContent = styled.p`
   -webkit-line-clamp: 4;
   line-clamp: 4;
   -webkit-box-orient: vertical;
+  -ms-word-break: break-all;
+  word-break: break-all;
 `

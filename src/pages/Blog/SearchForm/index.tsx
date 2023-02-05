@@ -36,7 +36,7 @@ export function SearchForm() {
   }, [debouncedValue])
 
   return (
-    <SearchFormContainer>
+    <SearchFormContainer onSubmit={(e) => e.preventDefault()}>
       <SearchFormHeader>
         <Title size={'s'}>Publicações</Title>
         <Text size={'s'} color={'span'}>

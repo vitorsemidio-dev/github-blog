@@ -5,7 +5,8 @@ export const PostInfoContainer = styled.div`
   margin: 0 auto;
   margin-top: -5.5rem;
 
-  width: ${(props) => props.theme.screens.desktop};
+  width: 100%;
+  max-width: ${(props) => props.theme.screens.desktop};
   background: ${(props) => props.theme.colors['base-profile']};
   padding: 2rem 2.5rem;
   border-radius: 10px;
@@ -21,6 +22,12 @@ export const PostInfoList = styled.ul`
   display: flex;
   gap: 1.5rem;
   margin-top: 0.5rem;
+
+  @media (max-width: ${(props) => props.theme.screens.tablet}) {
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
 `
 
 export const PostBackLink = styled(Link)`
@@ -49,4 +56,8 @@ export const PostInfoListItem = styled.li`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  @media (max-width: ${(props) => props.theme.screens.tablet}) {
+    flex-direction: column;
+  }
 `
